@@ -22,12 +22,12 @@ export default function Home() {
         <div id="sidebar-wrapper">
           <ul className="sidebar-nav" style={{ marginTop: 10 + 'px' }}>
             <li>
-              <button className='btn' style={{ width: 230 + 'px' }}>
+              <button className='desktopView btn mx-auto text-center' style={{ width: 230 + 'px' }}>
                 <i className='fas fa-plus-circle'></i>&nbsp;&nbsp;New Chat
               </button>
             </li>
             <li>
-              <a className='question' href="#"><i className='far fa-comment-alt'></i>&nbsp;&nbsp;How are you?</a>
+              <a className='questionSideBAR' href="#"><i className='far fa-comment-alt'></i>&nbsp;&nbsp;How are you?</a>
             </li>
           </ul>
           <div className='sidebar-nav-bt'>
@@ -48,12 +48,37 @@ export default function Home() {
           <div className="container-fluid">
 
             <div id="div2-1">
-              <h1>Hari Bol</h1>
+              <div className='mobileView'>
+                <div className='row'>
+                  <div className='col'>
+                    <button onClick={() => setToggle(old => !old)} className='btn'>
+                      <i className='fas fa-bars'></i>
+                    </button>
+                  </div>
+                  <div className='col'>
+                    <button className='btn' style={{ width: 230 + 'px' }}>
+                      <i className='fas fa-plus-circle'></i>&nbsp;&nbsp;New Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className='questions' style={{marginTop: 10+'px'}}>
+                <div className='questionBOX'>
+                  <div className='boxStyle question'>
+                    <h5>How are you???</h5>
+                  </div>
+                  <br/><br/><br/>
+                  <div className='boxStyle answer'>
+                    <h5>All Good !</h5>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
-          <div id="div2-2">
-            <div className='form-group mx-auto text-center' style={{ position: 'relative', bottom: '0' }}>
+
+          <div id="div2">
+            <div className='absCon2 form-group mx-auto text-center'>
               <textarea
                 rows="1"
                 type="text"
