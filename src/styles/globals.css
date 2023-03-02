@@ -237,7 +237,7 @@ body {
   height: 50%;
 }
 
-#div2-2{
+#div2-2 {
   background: white;
   padding: 20px;
   text-align: center;
@@ -249,3 +249,12 @@ textarea {
   padding-right: 10rem !important;
   resize: none;
 }
+
+/*Extra Added Css */
+  #div2-2 {
+  position: fixed;
+  left: 2px;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}  

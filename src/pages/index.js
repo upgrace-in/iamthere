@@ -50,18 +50,19 @@ export default function Home() {
             <div id="div2-1">
               <h1>Hari Bol</h1>
             </div>
-            <div id="div2-2">
-              <div className='form-group mx-auto text-center'>
-                <textarea
-                  rows="1"
-                  type="text"
-                  className='form-control'></textarea>
-                <button className='btn absBTN absBTN2'><i className='fas fa-microphone-alt'></i></button>
-                <button className='btn absBTN'><i className='far fa-paper-plane'></i></button>
-              </div>
-            </div>
 
           </div>
+          <div id="div2-2">
+            <div className='form-group mx-auto text-center' style={{ position: 'relative', bottom: '0' }}>
+              <textarea
+                rows="1"
+                type="text"
+                className='form-control'></textarea>
+              <button className='btn absBTN absBTN2'><i className='fas fa-microphone-alt'></i></button>
+              <button className='btn absBTN'><i className='far fa-paper-plane'></i></button>
+            </div>
+          </div>
+
         </div>
       </div>
     </>
