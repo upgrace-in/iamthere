@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
+import Question from './components/Question'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -62,19 +63,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className='questions' style={{marginTop: 10+'px'}}>
-                <div className='questionBOX'>
-                  <div className='boxStyle question'>
-                    <h5>How are you???</h5>
-                  </div>
-                  <br/><br/><br/>
-                  <div className='boxStyle answer'>
-                    <h5>All Good !</h5>
-                  </div>
-                </div>
+              <div className='questions' style={{ marginTop: 10 + 'px' }}>
+                <Question question="How are you?" answer="All Good !!!" />
               </div>
             </div>
-
           </div>
 
           <div id="div2">
