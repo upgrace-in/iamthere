@@ -339,3 +339,7 @@ textarea {
 .questionBOX{
   width: 100%;
 }
+
+.cr{
+  cursor: pointer;
+}

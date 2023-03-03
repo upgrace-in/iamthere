@@ -5,13 +5,13 @@ export default function Question(props) {
                 <div className='col boxStyle question'>
                     <h5>{props.question}</h5>
                 </div>
-                <div className='col microphone'>
+                <div className='col cr microphone'>
                     <i className='fas fa-microphone'></i>
                 </div>
             </div>
             <hr />
             <div className='row answerBOX'>
-                <div className='col microphone'>
+                <div className='col cr microphone'>
                     <i className='fas fa-microphone'></i>
                 </div>
                 <div className='boxStyle answer'>
