@@ -2,13 +2,62 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
-import Question from './components/Question'
-
-const inter = Inter({ subsets: ['latin'] })
+import axios from 'axios'
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder'
+import { v4 } from "uuid";
 
 export default function Home() {
 
-  const [toggle, setToggle] = useState(true)
+  const recorderControls = useAudioRecorder();
+
+  const addAudioElement = (blob) => {
+    // Creating a DOM
+    const url = URL.createObjectURL(blob);
+    const audio = document.createElement('audio');
+    audio.src = url;
+    audio.controls = true;
+    $('#audioDiv').html(audio)
+
+    askinSpeech(blob)
+  };
+
+  const [input, setInput] = useState('')
+
+  const askinSpeech = async (data) => {
+    // Creating formData
+    const audiofile = new File([data], v4() + ".mp3", {
+      type: "audio/mpeg",
+    });
+    let formData = new FormData()
+    formData.append("fileName", audiofile.name)
+    formData.append("audio", audiofile)
+
+    // Sending to the server
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' },
+      onUploadProgress: (event) => {
+        console.log(`Current progress:`, Math.round((event.loaded * 100) / event.total));
+      },
+    };
+
+    await sendToServer('/api/askInSpeech', formData, config)
+  }
+
+  const askinText = async (data) => {
+    await sendToServer('/api/askinText', { "input": data }, {})
+  }
+
+  const sendToServer = async (url, formData, config) => {
+    await axios.post(url, formData, config).then(val => {
+      console.log(val.data.result);
+    }).catch(e => {
+      console.log(e);
+    })
+  }
+
+  useEffect(() => {
+    // ask({"type": "text", "input": "How are you???"})
+  }, [])
 
   return (
     <>
@@ -19,69 +68,41 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div id="wrapper" className={toggle ? "wrapper-content" : "wrapper-content toggled"}>
-        <div id="sidebar-wrapper">
-          <ul className="sidebar-nav" style={{ marginTop: 10 + 'px' }}>
-            <li>
-              <button className='desktopView btn mx-auto text-center' style={{ width: 230 + 'px' }}>
-                <i className='fas fa-plus-circle'></i>&nbsp;&nbsp;New Chat
-              </button>
-            </li>
-            <li>
-              <a className='questionSideBAR' href="#"><i className='far fa-comment-alt'></i>&nbsp;&nbsp;How are you?</a>
-            </li>
-          </ul>
-          <div className='sidebar-nav-bt'>
-            <hr style={{ margin: 10 + 'px' }} />
-            <ul className="sidebar-nav">
-              <li>
-                <a href="#"><i className='far fa-trash-alt'></i>&nbsp;&nbsp;Clear Conversations</a>
-              </li>
-              <li>
-                <a href="#"><i className='far fa-moon'></i>&nbsp;&nbsp;Dark Mode</a>
-              </li>
-            </ul>
+      <main>
+        <div id="div1" className='topCon'>
+          <div>
+            <h1>Iamthere.AI</h1>
           </div>
         </div>
-
-        <div id="page-content-wrapper">
-
-          <div className="container-fluid">
-
-            <div id="div2-1">
-              <div className='mobileView'>
-                <div className='row'>
-                  <div className='col'>
-                    <button onClick={() => setToggle(old => !old)} className='btn'>
-                      <i className='fas fa-bars'></i>
-                    </button>
-                  </div>
-                  <div className='col'>
-                    <button className='btn' style={{ width: 230 + 'px' }}>
-                      <i className='fas fa-plus-circle'></i>&nbsp;&nbsp;New Chat
-                    </button>
+        <div id="div2" className='midCon'>
+          <div>
+            <h1>Swipe to regenerate</h1>
+            <AudioRecorder
+              onRecordingComplete={(blob) => addAudioElement(blob)}
+              recorderControls={recorderControls}
+            />
+          </div>
+        </div>
+        <div id="div3" className='bottomCon'>
+          <div className='bCon'>
+            <div className='thirdCON'>
+              <div className='col-First'>
+                <div className='form-group'>
+                  <input onChange={(e) => setInput(e.target.value)} value={input} className='fc form-control' placeholder='Type here...' />
+                  <div onClick={() => askinText(input)} className='cr absICON'>
+                    <i className='fas fa-paper-plane'></i>
                   </div>
                 </div>
               </div>
-              <div className='questions' style={{ marginTop: 10 + 'px' }}>
-                <Question question="How are you?" answer="All Good !!!" />
+              <div className='col-Second'>
+                <div className='cr microphone mx-auto text-center'>
+                  <i className='fas fa-microphone'></i>
+                </div>
               </div>
             </div>
           </div>
-
-          <div id="div2">
-            <div className='absCon2 form-group mx-auto text-center'>
-              <textarea
-                rows="1"
-                type="text"
-                className='form-control'></textarea>
-              <button className='btn absBTN absBTN2'><i className='fas fa-microphone-alt'></i></button>
-              <button className='btn absBTN'><i className='far fa-paper-plane'></i></button>
-            </div>
-          </div>
-
         </div>
-      </div>
+      </main>
     </>
   )
 }

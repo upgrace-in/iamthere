@@ -7,6 +7,7 @@ export default async function Transcript(openai, audioFile) {
             fs.createReadStream(audioFile),
             "whisper-1"
         );
+        fs.unlinkSync(audioFile);
         return { response: true, result: resp.data.text }
     } catch (e) {
         return { response: false, result: e }
