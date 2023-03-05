@@ -1,11 +1,109 @@
+@font-face {
+  font-family: 'hipster';
+  src: url('/fonts/hipster.ttf');
+}
+
 body {
+  font-family: 'inter';
   height: 20%;
   background: #cdd3c7;
 }
 
+.newChatBTN:hover,
+.newChatBTN:focus {
+  color: #161616;
+  border: 2px solid #161616;
+  background: transparent;
+  text-align: center;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  transition: ease-in-out 0.8s;
+}
+
+.topCon {
+  padding-top: 20px;
+}
+
+.myRow {
+  display: flex;
+}
+
+.historyBOX {
+  color: #161616;
+  border: 2px solid #161616;
+  margin-left: 10px;
+  width: 120px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 30px;
+  font-size: 0.8rem;
+}
+
+.historyBOX:hover,
+.historyBOX:focus {
+  transition: ease-in-out 0.8s;
+  background: #161616;
+  border-radius: 30px;
+  color: rgb(228, 228, 228);
+  font-size: 0.8rem;
+}
+
+.fc{
+  font-size: 0.8rem;
+}
+
+.btnCon2 {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  width: 100px;
+}
+
+.histories {
+  overflow: auto !important;
+  padding: 20px 10px;
+}
+
+.discord {
+  background: #161616 !important;
+  color: #ffffff !important;
+}
+
+.btnCon {
+  border: 2px solid #161616;
+  width: 100px;
+  padding: 9px 0px;
+  text-align: center;
+  background: #161616;
+  border-radius: 30px;
+  color: rgb(228, 228, 228);
+  font-size: 0.8rem;
+}
+
+.btnCon3 {
+  width: 100px;
+}
+
+.discord {
+  margin-right: 10px;
+}
+
+.logo {
+  padding-top: 2px;
+  padding-left: 15px;
+  font-family: 'hipster';
+  font-size: 1.5rem;
+}
+
+.histories {
+  height: 80px;
+  overflow: auto;
+}
+
 .midCon {
   height: 60%;
-  padding: 15px;
+  padding: 20px 20px;
   background: #eeeced;
 }
 
@@ -69,7 +167,7 @@ body {
   }
 }
 
-.microphone {
+.circleBorder {
   background: whitesmoke;
   border-radius: 50%;
   padding: 6px;
@@ -88,7 +186,7 @@ body {
   z-index: 2;
 }
 
-.recording{
+.recording {
   width: 100% !important;
 }
 
