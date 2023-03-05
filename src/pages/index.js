@@ -17,8 +17,7 @@ export default function Home() {
     audio.src = url;
     audio.controls = true;
     $('#audioDiv').html(audio)
-
-    askinSpeech(blob)
+    
   };
 
   const [input, setInput] = useState('')
@@ -40,7 +39,10 @@ export default function Home() {
       },
     };
 
-    await sendToServer('/api/askInSpeech', formData, config)
+    if (audiofile.size > 19649)
+      await sendToServer('/api/askInSpeech', formData, config)
+    else
+      console.log("Audio is too short !!!");
   }
 
   const askinText = async (data) => {
@@ -48,15 +50,19 @@ export default function Home() {
   }
 
   const sendToServer = async (url, formData, config) => {
-    await axios.post(url, formData, config).then(val => {
-      console.log(val.data.result);
-    }).catch(e => {
-      console.log(e);
-    })
+    // await axios.post(url, formData, config).then(val => {
+    //   handleResult(val.data.result)
+    // }).catch(e => {
+    //   console.log(e);
+    // })
+  }
+
+  const handleResult = (res) => {
+    console.log(res);
   }
 
   useEffect(() => {
-    // ask({"type": "text", "input": "How are you???"})
+
   }, [])
 
   return (
@@ -77,10 +83,6 @@ export default function Home() {
         <div id="div2" className='midCon'>
           <div>
             <h1>Swipe to regenerate</h1>
-            <AudioRecorder
-              onRecordingComplete={(blob) => addAudioElement(blob)}
-              recorderControls={recorderControls}
-            />
           </div>
         </div>
         <div id="div3" className='bottomCon'>
@@ -95,14 +97,21 @@ export default function Home() {
                 </div>
               </div>
               <div className='col-Second'>
-                <div className='cr microphone mx-auto text-center'>
+                <div onClick={() => { recorderControls.startRecording() }} className='cr microphone mx-auto text-center'>
                   <i className='fas fa-microphone'></i>
                 </div>
               </div>
             </div>
+            <div className='absAudioCON' style={recorderControls.isRecording ? { "display": "block" } : {"display":"none"}}>
+            <AudioRecorder
+              classes={"move"}
+              onRecordingComplete={(blob) => askinSpeech(blob)}
+              recorderControls={recorderControls}
+            />
           </div>
         </div>
-      </main>
+      </div>
+    </main>
     </>
   )
 }

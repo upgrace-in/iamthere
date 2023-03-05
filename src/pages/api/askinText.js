@@ -18,7 +18,6 @@ export default async function handler(req, res) {
         }).catch(e => {
             throw e
         })
-        res.send({ response: true })
     } catch (e) {
         console.log(e);
         res.send({ response: false, result: e })

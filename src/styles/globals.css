@@ -39,6 +39,8 @@ body {
 
 .fc,
 .fc:focus {
+  border: 0 !important;
+  outline: none !important;
   border-radius: 20px;
   padding-right: 32px;
 }
@@ -55,6 +57,7 @@ body {
 }
 
 .col-Second {
+
   padding: 5px;
   width: 13%;
 }
@@ -75,6 +78,18 @@ body {
 
 .microphone>.fas {
   color: black;
+}
+
+.absAudioCON {
+  top: 24px;
+  left: 19px;
+  width: 90%;
+  position: absolute;
+  z-index: 2;
+}
+
+.recording{
+  width: 100% !important;
 }
 
 
