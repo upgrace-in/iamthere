@@ -8,15 +8,6 @@ export default function EndPart(props) {
     const recorderControls = useAudioRecorder();
     const [input, setInput] = useState('')
 
-    // const addAudioElement = (blob) => {
-    //     // Creating a DOM
-    //     const url = URL.createObjectURL(blob);
-    //     const audio = document.createElement('audio');
-    //     audio.src = url;
-    //     audio.controls = true;
-    //     $('#audioDiv').html(audio)
-    // };
-
     const askinSpeech = async (data) => {
         // Creating formData
         const audiofile = new File([data], v4() + ".mp3", {

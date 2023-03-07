@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import { use, useEffect, useState } from 'react'
-import $ from 'jquery'
+import { useEffect, useState } from 'react'
 
-import TopPart from './components/TopPart'
-import MidPart from './components/MidPart'
-import EndPart from './components/EndPart'
+import TopPart from '../../components/TopPart'
+import MidPart from '../../components/MidPart'
+import EndPart from '../../components/EndPart'
 
 export default function Home() {
 
