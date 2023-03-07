@@ -33,9 +33,10 @@ apiRoute.post(async (req, res) => {
         await Transcript(openai, process.env.TEMP_PATH + '/' + req.body.fileName).then(async val => {
             if (val.response) {
                 // Send to GPT
-                await GPT(openai, val.result).then(val => {
+                let input = val.result;
+                await GPT(openai, input).then(val => {
                     if (val.response) {
-                        res.send({ response: true, result: val.result })
+                        res.send({ response: true, input: input, result: val.result })
                     } else
                         throw val.result
                 }).catch(e => {

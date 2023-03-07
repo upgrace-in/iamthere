@@ -1,6 +1,6 @@
 import History from "./History"
 
-export default function TopPart() {
+export default function TopPart(props) {
     return (
         <div id="div1" className='topCon'>
             <div style={{ display: 'flex' }}>
@@ -18,14 +18,19 @@ export default function TopPart() {
 
             <div className='histories myRow'>
                 <div className='cr btnCon newChatBTN'>
-                    <div className='btnCon3 mx-auto text-center'>
+                    <div onClick={() => props.setarr([])} className='btnCon3 mx-auto text-center'>
                         <i className='fas fa-plus'></i>&nbsp;&nbsp;<span>New chat</span>
                     </div>
                 </div>
-                <History question={"How are you?"} />
-                <History question={"انا احبك يا حبيبي"} />
-                <History question={"कुत्ते का क्या मतलब होता है?"} />
-                <History question={"انا احبك يا حبيبي"} />
+                {
+                    (props.dict !== undefined) && (props.dict !== null)
+                        ?
+                        props.dict.map((val, i) => {
+                            return <History key={i} setarr={props.setarr} dict={props.dict} index={i} question={val[0]} />
+                        })
+                        :
+                        ""
+                }
             </div>
         </div>
     )

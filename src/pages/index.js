@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import $ from 'jquery'
 
 import TopPart from './components/TopPart'
@@ -7,6 +7,22 @@ import MidPart from './components/MidPart'
 import EndPart from './components/EndPart'
 
 export default function Home() {
+
+  const [dict, setDict] = useState()
+
+  const [arr, setarr] = useState()
+
+  useEffect(() => {
+    // localStorage.removeItem('dict')
+    setDict(JSON.parse(localStorage.getItem('dict')))
+  }, [])
+
+  useEffect(() => {
+
+    if ((dict !== undefined) && (dict !== null) && (dict.length > 0))
+      setarr(dict[0])
+
+  }, [dict])
 
   return (
     <>
@@ -18,9 +34,9 @@ export default function Home() {
       </Head>
 
       <main>
-        <TopPart />
-        <MidPart />
-        <EndPart />
+        <TopPart dict={dict} setarr={setarr} />
+        <MidPart arr={arr} />
+        <EndPart setDict={setDict} dict={dict} />
       </main>
     </>
   )

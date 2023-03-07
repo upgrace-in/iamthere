@@ -39,6 +39,15 @@ body {
   font-size: 0.8rem;
 }
 
+.absICON:focus, .absICON:hover{
+  color: #606060;
+}
+
+.ansText{
+  color: #606060;
+  font-weight: 500;
+}
+
 .historyBOX:hover,
 .historyBOX:focus {
   transition: ease-in-out 0.8s;

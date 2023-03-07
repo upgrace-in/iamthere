@@ -1,22 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder'
 import axios from 'axios'
 import { v4 } from "uuid";
 
-export default function EndPart() {
+export default function EndPart(props) {
 
     const recorderControls = useAudioRecorder();
-
-    const addAudioElement = (blob) => {
-        // Creating a DOM
-        const url = URL.createObjectURL(blob);
-        const audio = document.createElement('audio');
-        audio.src = url;
-        audio.controls = true;
-        $('#audioDiv').html(audio)
-    };
-
     const [input, setInput] = useState('')
+
+    // const addAudioElement = (blob) => {
+    //     // Creating a DOM
+    //     const url = URL.createObjectURL(blob);
+    //     const audio = document.createElement('audio');
+    //     audio.src = url;
+    //     audio.controls = true;
+    //     $('#audioDiv').html(audio)
+    // };
 
     const askinSpeech = async (data) => {
         // Creating formData
@@ -49,17 +48,26 @@ export default function EndPart() {
     }
 
     const sendToServer = async (url, formData, config) => {
-        // await axios.post(url, formData, config).then(val => {
-        //   handleResult(val.data.result)
-        // }).catch(e => {
-        //   console.log(e);
-        // })
+        // Start animation
+        await axios.post(url, formData, config).then(val => {
+            // Stop Animation
+            handleResult([val.data.input, val.data.result])
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
-    const handleResult = (res) => {
-        console.log(res);
+    const handleResult = (arr) => {
+        props.setDict(old => {
+            let finalData;
+            if (old !== null)
+                finalData = [arr, ...old]
+            else
+                finalData = [arr]
+            localStorage.setItem("dict", JSON.stringify(finalData))
+            return finalData
+        })
     }
-
 
     return (
         <div id="div3" className='bottomCon'>
@@ -67,7 +75,7 @@ export default function EndPart() {
                 <div className='thirdCON'>
                     <div className='col-First'>
                         <div className='form-group'>
-                            <input onChange={(e) => setInput(e.target.value)} value={input} className='fc form-control' placeholder='Type here...' />
+                            <input  onChange={(e) => setInput(e.target.value)} value={input} className='fc form-control' placeholder='Type here...' />
                             <div onClick={() => askinText(input)} className='cr absICON'>
                                 <i className='fas fa-paper-plane'></i>
                             </div>

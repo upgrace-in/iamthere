@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     try {
         await GPT(openai, req.body.input).then(val => {
             if (val.response)
-                res.send({ response: true, result: val.result })
+                res.send({ response: true, input: req.body.input, result: val.result })
             else
                 throw val.result
         }).catch(e => {
