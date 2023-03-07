@@ -12,6 +12,8 @@ export default function Home() {
 
   const [arr, setarr] = useState()
 
+  const [processing, setprocessing] = useState(false)
+
   useEffect(() => {
     // localStorage.removeItem('dict')
     setDict(JSON.parse(localStorage.getItem('dict')))
@@ -35,8 +37,8 @@ export default function Home() {
 
       <main>
         <TopPart dict={dict} setarr={setarr} />
-        <MidPart arr={arr} />
-        <EndPart setDict={setDict} dict={dict} />
+        <MidPart processing={processing} arr={arr} />
+        <EndPart setarr={setarr} processing={processing} setprocessing={setprocessing} setDict={setDict} dict={dict} />
       </main>
     </>
   )

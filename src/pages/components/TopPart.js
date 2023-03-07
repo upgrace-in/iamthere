@@ -18,7 +18,7 @@ export default function TopPart(props) {
 
             <div className='histories myRow'>
                 <div className='cr btnCon newChatBTN'>
-                    <div onClick={() => props.setarr([])} className='btnCon3 mx-auto text-center'>
+                    <div onClick={() => props.setarr(["", ""])} className='btnCon3 mx-auto text-center'>
                         <i className='fas fa-plus'></i>&nbsp;&nbsp;<span>New chat</span>
                     </div>
                 </div>

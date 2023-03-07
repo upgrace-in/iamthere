@@ -34,10 +34,10 @@ export default function EndPart(props) {
             },
         };
 
-        if (audiofile.size > 19649)
+        if (audiofile.size > 10649)
             await sendToServer('/api/askInSpeech', formData, config)
         else
-            console.log("Audio is too short !!!");
+            alert("Audio is too short !!!");
     }
 
     const askinText = async (data) => {
@@ -49,10 +49,15 @@ export default function EndPart(props) {
 
     const sendToServer = async (url, formData, config) => {
         // Start animation
+        props.setprocessing(true)
+        props.setarr(["", ""])
         await axios.post(url, formData, config).then(val => {
             // Stop Animation
+            props.setprocessing(false)
+            setInput('')
             handleResult([val.data.input, val.data.result])
         }).catch(e => {
+            props.setprocessing(false)
             console.log(e);
         })
     }
@@ -72,10 +77,10 @@ export default function EndPart(props) {
     return (
         <div id="div3" className='bottomCon'>
             <div className='bCon'>
-                <div className='thirdCON'>
+                <div className='thirdCON' style={props.processing ? { "pointerEvents": "none" } : { "pointerEvents": "auto" }}>
                     <div className='col-First'>
                         <div className='form-group'>
-                            <input  onChange={(e) => setInput(e.target.value)} value={input} className='fc form-control' placeholder='Type here...' />
+                            <input onChange={(e) => setInput(e.target.value)} value={input} className='fc form-control' placeholder='Type here...' />
                             <div onClick={() => askinText(input)} className='cr absICON'>
                                 <i className='fas fa-paper-plane'></i>
                             </div>
