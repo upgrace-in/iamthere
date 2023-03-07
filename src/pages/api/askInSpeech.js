@@ -11,7 +11,7 @@ const openai = new OpenAIApi(configuration);
 
 const upload = multer({
     storage: multer.diskStorage({
-        destination: process.env.TEMP_PATH,
+        destination: __dirname + process.env.TEMP_PATH,
         filename: (req, file, cb) => cb(null, file.originalname),
     }),
 });
@@ -30,7 +30,7 @@ apiRoute.use(upload.array('audio'));
 apiRoute.post(async (req, res) => {
     try {
         // Convert speech to text 
-        await Transcript(openai, process.env.TEMP_PATH + '/' + req.body.fileName).then(async val => {
+        await Transcript(openai, __dirname + process.env.TEMP_PATH + '/' + req.body.fileName).then(async val => {
             if (val.response) {
                 // Send to GPT
                 let input = val.result;
